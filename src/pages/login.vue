@@ -40,6 +40,7 @@
   </div>
 </template>
 <script>
+import {loginApi} from '@/api/api.js'
 export default {
   name: '登录',
   data () {
@@ -72,6 +73,16 @@ export default {
       },
       checked: false
     }
+  },
+  methods: {
+    login () {
+      loginApi.doLogin(this.account).then(re => {
+        console.log(re)
+      })
+    }
+  },
+  mounted () {
+    this.login()
   }
 }
 </script>

@@ -4,13 +4,11 @@ import vue from 'vue'
 
 const request = (url, body, type = 'get', isJson = false) => {
   const query = {
-    url: 'http://localhost:8082/sjblog' + url ,
+    url: 'http://localhost:8082/sso' + url,
     method: type,
     timeout: 30000,
-    headers: { 
-      // 'Access-Control-Allow-Origin': '*',  
-      'Request-Ajax': true 
-      },
+    headers: {
+    }
   }
   if (type === 'get') {
     query.params = body
@@ -42,33 +40,33 @@ const request = (url, body, type = 'get', isJson = false) => {
       },
       e => {
         switch (e.response.status) {
-          case 401: // 未登录跳转至登录页
-            if (cookies.getCookie('ucarincLogoutUrl')) {
-              const ucarincLogoutUrl = cookies.getCookie('ucarincLogoutUrl')
-              location.href = ucarincLogoutUrl
-              cookies.delCookie('ucarincLogoutUrl')
-            } else {
-              top.window.postMessage(
-                {
-                  type: 'NO_LOGIN',
-                  msg: '401'
-                },
-                '*'
-              )
-              top.location.href = getDynamicUrl('http://oa.ucarinc.com')
-            }
-            return Promise.reject(new Error('未登录，请重新登录'))
-          case 403: // 无权限操作
-            top.window.postMessage(
-              {
-                type: 'NO_PERMISSION',
-                msg: '403'
-              },
-              '*'
-            )
-            return Promise.reject(new Error('对不起，您暂无操作权限'))
-          default:
-            break
+          // case 401: // 未登录跳转至登录页
+          //   if (cookies.getCookie('ucarincLogoutUrl')) {
+          //     const ucarincLogoutUrl = cookies.getCookie('ucarincLogoutUrl')
+          //     location.href = ucarincLogoutUrl
+          //     cookies.delCookie('ucarincLogoutUrl')
+          //   } else {
+          //     top.window.postMessage(
+          //       {
+          //         type: 'NO_LOGIN',
+          //         msg: '401'
+          //       },
+          //       '*'
+          //     )
+          //     // top.location.href = getDynamicUrl('http://oa.ucarinc.com')
+          //   }
+          //   return Promise.reject(new Error('未登录，请重新登录'))
+          // case 403: // 无权限操作
+          //   top.window.postMessage(
+          //     {
+          //       type: 'NO_PERMISSION',
+          //       msg: '403'
+          //     },
+          //     '*'
+          //   )
+          //   return Promise.reject(new Error('对不起，您暂无操作权限'))
+          // default:
+          //   break
         }
         return Promise.reject(e.response)
       }
@@ -78,10 +76,8 @@ const request = (url, body, type = 'get', isJson = false) => {
       return Promise.reject(e)
     })
 }
-export const articleApi = {
-  init: query => request('/article/index/init', query, 'POST', true),
-  test: query => request('/article/index/test', query, 'POST', true),
-  create: query => request('/article/create', query, 'POST', true),
-  getArticle: query => request('/article/detail', { aid: query }, 'get', true),
+export const loginApi = {
+  doLogin: query => request('/Login/doLogin', query, 'post', true)
+  // getArticle: query => request('/article/detail', { aid: query }, 'get', true),
   // getArticle: query => request('/article/detail/', query , 'get', true),
 }
