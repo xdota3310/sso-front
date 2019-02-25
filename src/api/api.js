@@ -33,7 +33,6 @@ const request = (url, body, type = 'get', isJson = false) => {
             resolve(res.data)
           } else {
             // console.log(res)
-            console.log('123214234')
             reject(res.data)
           }
         })

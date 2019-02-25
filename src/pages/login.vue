@@ -6,25 +6,25 @@
       <el-form
         ref='AccountForm'
         :model='account'
-        rules='rules'
+        :rules= 'rules'
         label-position='left'
         label-width='0px'
         class='demo-ruleForm login-container'
       >
         <!-- tab标签 -->
         <el-form-item>统一登录认证系统</el-form-item>
-        <el-form-item prop='username'>
+        <el-form-item prop='userName'>
           <el-input
             type='text'
-            v-model="account.username"
+            v-model="account.userName"
             auto-complete='off'
             placeholder='请输入您的账号'
           ></el-input>
         </el-form-item>
-        <el-form-item prop='password'>
+        <el-form-item prop='passWord'>
           <el-input
-            type='password'
-            v-model='account.password'
+            type='passWord'
+            v-model='account.passWord'
             auto-complete='off'
             placeholder='请输入密码'
           ></el-input>
@@ -33,7 +33,7 @@
           <el-checkbox v-model='account.isRemember' checked >记住密码</el-checkbox>
         </el-form-item>
         <el-form-item style='width:100%;'>
-          <el-button type='primary' style='width:100%;'>登录</el-button>
+          <el-button type='primary' style='width:100%;' @click="login()">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -42,7 +42,6 @@
 <script>
 import {loginApi} from '@/api/api.js'
 export default {
-  name: '登录',
   data () {
     return {
       logining: false,
@@ -57,16 +56,16 @@ export default {
         backgroundRepeat: 'no-repeat'
       },
       account: {
-        username: '',
-        password: '',
+        userName: '',
+        passWord: '',
         isRemember: false
       },
       rules: {
-        username: [
+        userName: [
           { required: true, message: '请输入账号', trigger: 'blur' }
           //  { validator: validaePass }
         ],
-        password: [
+        passWord: [
           { required: true, message: '请输入密码', trigger: 'blur' }
           //  { validator: validaePass2 }
         ]
@@ -76,13 +75,13 @@ export default {
   },
   methods: {
     login () {
+      console.log(this.account)
       loginApi.doLogin(this.account).then(re => {
         console.log(re)
       })
     }
   },
   mounted () {
-    this.login()
   }
 }
 </script>
