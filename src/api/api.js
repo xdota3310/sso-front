@@ -4,10 +4,12 @@ import vue from 'vue'
 
 const request = (url, body, type = 'get', isJson = false) => {
   const query = {
-    url: 'http://localhost:8082/sso' + url,
+    url: 'http://localhost:8080//sjsite-sso' + url,
     method: type,
     timeout: 30000,
     headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Request-Ajax': true
     }
   }
   if (type === 'get') {

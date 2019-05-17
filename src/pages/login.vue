@@ -74,11 +74,18 @@ export default {
     }
   },
   methods: {
-    login () {
+    async login () {
+      this.account.passWord = await this.passwordFormart(this.account.passWord)
+      this.doLogin()
+    },
+    doLogin () {
       console.log(this.account)
       loginApi.doLogin(this.account).then(re => {
-        console.log(re)
+        this.$cookies.set('sjsite_token', 're.data.token', null, null, '47.101.35.22')
       })
+    },
+    passwordFormart (psw) {
+      return this.$md5(psw)
     }
   },
   mounted () {
