@@ -76,12 +76,13 @@ export default {
   methods: {
     async login () {
       this.account.passWord = await this.passwordFormart(this.account.passWord)
-      this.doLogin()
+      await this.doLogin()
+      this.$set(this.account,'passWord','')
     },
     doLogin () {
       console.log(this.account)
       loginApi.doLogin(this.account).then(re => {
-        this.$cookies.set('sjsite_token', 're.data.token', null, null, '47.101.35.22')
+        this.$cookies.set('sjsite_token', re.data.token, null, null, 'sjsite.com')
       })
     },
     passwordFormart (psw) {

@@ -12,6 +12,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.prototype.$md5 = md5;
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
