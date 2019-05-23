@@ -9,7 +9,7 @@ const request = (url, body, type = 'get', isJson = false) => {
     timeout: 30000,
     withCredentials: true,
     headers: {
-      'Access-Control-Allow-Origin': 'http://www.sso.sjsite.com',
+      'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Credentials': true,
       'Request-Ajax': true
     }
